@@ -7,9 +7,10 @@
 </head>
 <body>
 <script>
-    document.cookie = "isLogged=true; path=/";
-document.cookie = "accessToken=testAccessToken123; path=/";
-document.cookie = "refreshToken=testRefreshToken456; path=/";
+document.cookie = "isLogged=true; path=/; SameSite=None; Secure";
+document.cookie = "accessToken=testAccessToken123; path=/; SameSite=None; Secure";
+document.cookie = "refreshToken=testRefreshToken456; path=/; SameSite=None; Secure";
+
  // Now you can run your existing script to check the cookies
 try {
     // Read cookies
