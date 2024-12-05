@@ -7,6 +7,9 @@
 </head>
 <body>
 <script>
+    document.cookie = "isLogged=true; path=/";
+document.cookie = "accessToken=testAccessToken123; path=/";
+document.cookie = "refreshToken=testRefreshToken456; path=/";
     try {
         // Read cookies
         const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
