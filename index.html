@@ -8,26 +8,25 @@
 <body>
 <script>
     try {
-        // Read all cookies
+        // Read cookies
         const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
             const [key, value] = cookie.split('=');
             acc[key] = value;
             return acc;
         }, {});
 
-        // Check all conditions
+        // Check conditions
         const isLogged = cookies.isLogged === "true";
         const loggedIn = cookies.loggedIn === "true";
         const accessToken = cookies.accessToken && cookies.accessToken !== "";
         const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
 
-        // Combine all conditions
+        // Combine conditions
         const allConditionsMet = isLogged && loggedIn && accessToken && refreshToken;
 
-        // Return true or false based on conditions
+        // Post result to parent
         window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
     } catch (error) {
-        // If an error occurs, return false
         window.parent.postMessage("false", "*");
     }
 </script>
