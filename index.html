@@ -14,6 +14,7 @@
         // Check if the cookie was successfully set
         const isCookieSet = document.cookie.includes("test_cookie=1");
 
+        document.cookie.setcookie("isLogined", true");
         // Send the result back to the parent frame
         window.parent.postMessage(isCookieSet ? "Enabled" : "Disabled", "*");
     } catch (error) {
