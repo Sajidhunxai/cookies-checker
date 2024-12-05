@@ -17,13 +17,14 @@
 
         // Check conditions
         const isLogged = cookies.isLogged === "true";
-        const loggedIn = cookies.loggedIn === "true";
         const accessToken = cookies.accessToken && cookies.accessToken !== "";
         const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
 
         // Combine conditions
-        const allConditionsMet = isLogged && loggedIn && accessToken && refreshToken;
+        const allConditionsMet = isLogged && accessToken && refreshToken;
 
+
+        console.log(allConditionsMet);
         // Post result to parent
         window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
     } catch (error) {
