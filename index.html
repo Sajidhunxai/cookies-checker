@@ -8,18 +8,27 @@
 <body>
 <script>
     try {
-        // Attempt to set a test cookie
-        document.cookie = "test_cookie=1; SameSite=None; Secure";
+        // Read all cookies
+        const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+            const [key, value] = cookie.split('=');
+            acc[key] = value;
+            return acc;
+        }, {});
 
-        // Check if the cookie was successfully set
-        const isCookieSet = document.cookie.includes("test_cookie=1");
+        // Check all conditions
+        const isLogged = cookies.isLogged === "true";
+        const loggedIn = cookies.loggedIn === "true";
+        const accessToken = cookies.accessToken && cookies.accessToken !== "";
+        const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
 
-        document.cookie.setcookie("isLogined", true");
-        // Send the result back to the parent frame
-        window.parent.postMessage(isCookieSet ? "Enabled" : "Disabled", "*");
+        // Combine all conditions
+        const allConditionsMet = isLogged && loggedIn && accessToken && refreshToken;
+
+        // Return true or false based on conditions
+        window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
     } catch (error) {
-        // If an error occurs (e.g., cookies are blocked)
-        window.parent.postMessage("Disabled", "*");
+        // If an error occurs, return false
+        window.parent.postMessage("false", "*");
     }
 </script>
 </body>
