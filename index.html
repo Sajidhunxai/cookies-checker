@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Check</title>
+</head>
+<body>
+<script>
+    try {
+        // Attempt to set a test cookie
+        document.cookie = "test_cookie=1; SameSite=None; Secure";
+
+        // Check if the cookie was successfully set
+        const isCookieSet = document.cookie.includes("test_cookie=1");
+
+        // Send the result back to the parent frame
+        window.parent.postMessage(isCookieSet ? "Enabled" : "Disabled", "*");
+    } catch (error) {
+        // If an error occurs (e.g., cookies are blocked)
+        window.parent.postMessage("Disabled", "*");
+    }
+</script>
+</body>
+</html>
