@@ -10,39 +10,40 @@
     document.cookie = "isLogged=true; path=/";
 document.cookie = "accessToken=testAccessToken123; path=/";
 document.cookie = "refreshToken=testRefreshToken456; path=/";
-    try {
-        // Read cookies
-        const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-            const [key, value] = cookie.split('=');
-            acc[key] = value;
-            return acc;
-        }, {});
+ // Now you can run your existing script to check the cookies
+try {
+    // Read cookies
+    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=');
+        acc[key] = value;
+        return acc;
+    }, {});
 
-        // Debugging: log the parsed cookies object
-        console.log("Cookies object:", cookies);
+    // Debugging: log the parsed cookies object
+    console.log("Cookies object:", cookies);
 
-        // Check conditions
-        const isLogged = cookies.isLogged === "true";
-        const accessToken = cookies.accessToken && cookies.accessToken !== "";
-        const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
+    // Check conditions
+    const isLogged = cookies.isLogged === "true";
+    const accessToken = cookies.accessToken && cookies.accessToken !== "";
+    const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
 
-        // Debugging: log each condition
-        console.log("isLogged:", isLogged);
-        console.log("accessToken:", cookies.accessToken);
-        console.log("refreshToken:", cookies.refreshToken);
+    // Debugging: log each condition
+    console.log("isLogged:", isLogged);
+    console.log("accessToken:", cookies.accessToken);
+    console.log("refreshToken:", cookies.refreshToken);
 
-        // Combine conditions
-        const allConditionsMet = isLogged && accessToken && refreshToken;
+    // Combine conditions
+    const allConditionsMet = isLogged && accessToken && refreshToken;
 
-        // Debugging: log the final result
-        console.log("All conditions met:", allConditionsMet);
+    // Debugging: log the final result
+    console.log("All conditions met:", allConditionsMet);
 
-        // Post result to parent
-        window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
-    } catch (error) {
-        console.error("Error occurred:", error);
-        window.parent.postMessage("false", "*");
-    }
+    // Post result to parent
+    window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
+} catch (error) {
+    console.error("Error occurred:", error);
+    window.parent.postMessage("false", "*");
+}
 </script>
 </body>
 </html>
