@@ -15,19 +15,29 @@
             return acc;
         }, {});
 
+        // Debugging: log the parsed cookies object
+        console.log("Cookies object:", cookies);
+
         // Check conditions
         const isLogged = cookies.isLogged === "true";
         const accessToken = cookies.accessToken && cookies.accessToken !== "";
         const refreshToken = cookies.refreshToken && cookies.refreshToken !== "";
 
+        // Debugging: log each condition
+        console.log("isLogged:", isLogged);
+        console.log("accessToken:", cookies.accessToken);
+        console.log("refreshToken:", cookies.refreshToken);
+
         // Combine conditions
         const allConditionsMet = isLogged && accessToken && refreshToken;
 
+        // Debugging: log the final result
+        console.log("All conditions met:", allConditionsMet);
 
-        console.log(allConditionsMet);
         // Post result to parent
         window.parent.postMessage(allConditionsMet ? "true" : "false", "*");
     } catch (error) {
+        console.error("Error occurred:", error);
         window.parent.postMessage("false", "*");
     }
 </script>
